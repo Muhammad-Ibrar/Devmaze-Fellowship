@@ -33,22 +33,32 @@ class _LoginWithPhoneNumberState extends State<LoginWithPhoneNumber> {
 
             TextFormField(
               controller: phoneNumberController,
+              keyboardType: TextInputType.number,
               decoration: const InputDecoration(
-                hintText: '+92 314 675667',
+                hintText: '+92 123 5678901',
               ),
             ),
 
             SizedBox(height: 50),
             
-           RoundButton(title: 'Login',
+           RoundButton(title: 'Login', loading: loading,
                onTap: (){
+             setState(() {
+               loading = true;
+             });
 
              auth.verifyPhoneNumber(
                phoneNumber:phoneNumberController.text ,
                  verificationCompleted: (_){
 
+                   setState(() {
+                     loading = false;
+                   });
                  },
                  verificationFailed: (e){
+                   setState(() {
+                     loading = false;
+                   });
                  Utils().ToastMessage(e.toString());
                  },
                  codeSent: (String VerificationId , int? token){
@@ -56,9 +66,17 @@ class _LoginWithPhoneNumberState extends State<LoginWithPhoneNumber> {
                  Navigator.push(context, MaterialPageRoute(
                      builder: (context) => VerifyCodeScreen(verificationId: VerificationId,)));
 
+                 setState(() {
+                   loading = false;
+                 });
                  },
                  codeAutoRetrievalTimeout: (e){
+
+
                    Utils().ToastMessage(e.toString());
+                   setState(() {
+                     loading = false;
+                   });
                  }
              );
 
