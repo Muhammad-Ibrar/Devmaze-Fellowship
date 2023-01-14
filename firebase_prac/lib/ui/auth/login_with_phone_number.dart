@@ -53,7 +53,8 @@ class _LoginWithPhoneNumberState extends State<LoginWithPhoneNumber> {
                  },
                  codeSent: (String VerificationId , int? token){
 
-                 Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyCodeScreen()));
+                 Navigator.push(context, MaterialPageRoute(
+                     builder: (context) => VerifyCodeScreen(verificationId: VerificationId,)));
 
                  },
                  codeAutoRetrievalTimeout: (e){
