@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_prac/ui/auth/posts/post_screen.dart';
 import 'package:firebase_prac/utils/utils.dart';
 import 'package:firebase_prac/widgets/round_button.dart';
 import 'package:flutter/material.dart';
@@ -41,10 +42,32 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
 
             SizedBox(height: 50),
 
-            RoundButton(title: 'Verify', loading: loading,
-                onTap: () {
+            RoundButton(title: 'Verify', loading: loading, onTap: ()async {
 
-                }),
+              setState(() {
+                 loading = true;
+              });
+              final crendtial = PhoneAuthProvider.credential(
+                  verificationId: widget.verificationId,
+                  smsCode: verificationCodeController.text.toString(),
+              );
+
+              try{
+
+                await auth.signInWithCredential(crendtial);
+
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context)=> PostScreen()
+                ));
+              }catch(e){
+                setState(() {
+                  loading = false;
+                });
+                Utils().ToastMessage(e.toString());
+
+              }
+
+            }),
           ],
         ),
       ),

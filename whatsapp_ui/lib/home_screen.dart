@@ -79,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ListView.builder(
                     itemCount: 10,
                     itemBuilder: (context , index){
-                      if (index == 0)
+                      if (index == 1)
                         {
                           return  Padding(
                             padding: const EdgeInsets.all(8.0),
