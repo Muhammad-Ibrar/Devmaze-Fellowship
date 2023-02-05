@@ -1,3 +1,5 @@
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_prac/utils/utils.dart';
 import 'package:firebase_prac/widgets/round_button.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +12,11 @@ class AddPostScreen extends StatefulWidget {
 }
 
 class _AddPostScreenState extends State<AddPostScreen> {
+
+  final postController = TextEditingController();
+  bool loading = false;
+  final databaseRef = FirebaseDatabase.instance.ref('post');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,6 +33,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
 
             TextFormField(
               maxLines: 4,
+              controller: postController,
               decoration:const InputDecoration(
                 hintText: 'What is in your mind?',
                 border: OutlineInputBorder()
@@ -37,8 +45,26 @@ class _AddPostScreenState extends State<AddPostScreen> {
             ),
             RoundButton(
                 title: 'Add',
+                loading : loading,
                 onTap: (){
+                  setState(() {
+                    loading = true;
+                  });
+                  databaseRef.child(DateTime.now().microsecondsSinceEpoch.toString()).child('Sub Child').set({
+                    'id' : DateTime.now().microsecondsSinceEpoch.toString(),
+                    'title' :postController.text.toString()
+                  }).then((value){
 
+                    Utils().ToastMessage('Post Added');
+                    setState(() {
+                      loading = false;
+                    });
+                  }).onError((error, stackTrace){
+                    Utils().ToastMessage(error.toString());
+                    setState(() {
+                      loading = false;
+                    });
+                  });
                 }
             ),
 
