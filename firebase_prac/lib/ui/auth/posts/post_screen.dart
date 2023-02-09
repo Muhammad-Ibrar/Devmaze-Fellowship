@@ -89,9 +89,12 @@ class _PostScreenState extends State<PostScreen> {
                               title: Text('Edit'),
                             )
                         ),
-                        const PopupMenuItem(
+                         PopupMenuItem(
                             value: 1,
                             child: ListTile(
+                              onTap: (){
+                                ref.child(snapshot.child('id').value.toString()).remove();
+                              },
                               leading: Icon(Icons.delete_outline),
                               title: Text('Delete'),
                             )
