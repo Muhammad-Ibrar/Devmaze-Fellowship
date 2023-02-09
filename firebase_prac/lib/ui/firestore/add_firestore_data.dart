@@ -1,4 +1,4 @@
-import 'package:firebase_database/firebase_database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_prac/utils/utils.dart';
 import 'package:firebase_prac/widgets/round_button.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +15,7 @@ class _AddFirestoreDataScreenState extends State<AddFirestoreDataScreen> {
 
   final postController = TextEditingController();
   bool loading = false;
-  final databaseRef = FirebaseDatabase.instance.ref('post');
+  final fireStore = FirebaseFirestore.instance.collection('user');
 
   @override
   Widget build(BuildContext context) {
@@ -50,24 +50,30 @@ class _AddFirestoreDataScreenState extends State<AddFirestoreDataScreen> {
                   setState(() {
                     loading = true;
                   });
-
                   String id = DateTime.now().microsecondsSinceEpoch.toString();
 
-                  databaseRef.child(id).set({
-                    'id' : id,
-                    'title' :postController.text.toString()
+                  fireStore.doc(id).set({
+
+                    'title' : postController.text.toString(),
+                    'id' : id
+
                   }).then((value){
 
+                    setState(() {
+                      loading = false;
+                    });
                     Utils().ToastMessage('Post Added');
-                    setState(() {
-                      loading = false;
-                    });
+
                   }).onError((error, stackTrace){
-                    Utils().ToastMessage(error.toString());
+
                     setState(() {
                       loading = false;
                     });
+
+                    Utils().ToastMessage(error.toString());
+
                   });
+
                 }
             ),
 

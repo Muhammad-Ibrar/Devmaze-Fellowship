@@ -1,8 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:firebase_prac/ui/auth/login_screen.dart';
-import 'package:firebase_prac/ui/auth/posts/add_posts.dart';
 import 'package:firebase_prac/ui/firestore/add_firestore_data.dart';
 import 'package:firebase_prac/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +17,7 @@ class _FirestoreScreenState extends State<FirestoreScreen> {
   @override
   final auth = FirebaseAuth.instance;
   final editController  = TextEditingController();
+  final fireStore = FirebaseFirestore.instance.collection('user').snapshots();
 
   @override
   void initState() {
@@ -49,17 +48,37 @@ class _FirestoreScreenState extends State<FirestoreScreen> {
         children: [
            SizedBox(height: 20),
 
-           Expanded(
-            child: ListView.builder(
-              itemCount: 5,
-                itemBuilder: (context , index){
+           StreamBuilder<QuerySnapshot>(
+             stream: fireStore,
+               builder: (BuildContext context ,AsyncSnapshot<QuerySnapshot> snapshot){
 
-                  return const ListTile(
-                    title: Text('Ibrar')
-                  );
-                }
-            ),
-          ),
+               if(snapshot.connectionState == ConnectionState.waiting){
+                 return CircularProgressIndicator();
+               }
+
+               if(snapshot.hasError){
+
+                 return Text('Some Error');
+               }
+
+               return Expanded(
+                 child: ListView.builder(
+
+                     itemCount: snapshot.data!.docs.length,
+                     itemBuilder: (context , index){
+
+                       return ListTile(
+                           title: Text(snapshot.data!.docs[index]['title'].toString()),
+                         subtitle: Text(snapshot.data!.docs[index].id.toString()),
+
+                       );
+                     }
+                 ),
+               );
+               }
+           ),
+
+
 
         ],
       ),
