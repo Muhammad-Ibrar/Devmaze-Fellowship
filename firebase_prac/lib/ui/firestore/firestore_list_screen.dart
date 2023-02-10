@@ -19,6 +19,8 @@ class _FirestoreScreenState extends State<FirestoreScreen> {
   final editController  = TextEditingController();
   final fireStore = FirebaseFirestore.instance.collection('user').snapshots();
 
+  CollectionReference ref = FirebaseFirestore.instance.collection('user');
+
   @override
   void initState() {
     // TODO: implement initState
@@ -68,6 +70,17 @@ class _FirestoreScreenState extends State<FirestoreScreen> {
                      itemBuilder: (context , index){
 
                        return ListTile(
+                         onTap: (){
+                           ref.doc(snapshot.data!.docs[index].id.toString()).update({
+                             'title' : 'I am Ibrar'
+                           }).then((value){
+                             Utils().ToastMessage('Post Added');
+                           }).onError((error, stackTrace){
+                             Utils().ToastMessage(error.toString());
+                           });
+
+                           ref.doc(snapshot.data!.docs[index].id.toString()).delete();
+                         },
                            title: Text(snapshot.data!.docs[index]['title'].toString()),
                          subtitle: Text(snapshot.data!.docs[index].id.toString()),
 
