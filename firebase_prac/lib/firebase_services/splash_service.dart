@@ -16,14 +16,14 @@ class SplashServices{
     if(user!= null){
       Timer(Duration(seconds: 3),
 
-              ()=> Navigator.push(context , MaterialPageRoute(builder: (context) => UploadImageScreen()))
+              ()=> Navigator.push(context , MaterialPageRoute(builder: (context) => LoginScreen()))
       );
     }
     else{
 
       Timer(Duration(seconds: 3),
 
-              ()=> Navigator.push(context , MaterialPageRoute(builder: (context) => LoginScreen()))
+              ()=> Navigator.push(context , MaterialPageRoute(builder: (context) => PostScreen()))
       );
 
     }
