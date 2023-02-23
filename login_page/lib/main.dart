@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Facebook'),
+          centerTitle: true,
           backgroundColor: Colors.blue,
         ),
 
@@ -24,12 +25,12 @@ class MyApp extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children:  const[
-                  Image(
-                      image: NetworkImage('https://image.shutterstock.com/image-photo/kiev-ukraine-april-27-2015-260nw-278925056.jpg'),
-                    height: 50,
-                    width: 50,
-
-                  ),
+                  // Image(
+                  //     image: NetworkImage('https://www.google.com/imgres?imgurl=https%3A%2F%2Flogolook.net%2Fwp-content%2Fuploads%2F2021%2F06%2FFacebook-Logo.svg&imgrefurl=https%3A%2F%2Flogolook.net%2Ffacebook-logo%2F&tbnid=MpznMpo8AQlPmM&vet=12ahUKEwjQmebnzKT9AhV6picCHVq4DtAQMygBegUIARCfAQ..i&docid=IiRNHk469nvWeM&w=4096&h=2304&q=facebook%20images&ved=2ahUKEwjQmebnzKT9AhV6picCHVq4DtAQMygBegUIARCfAQ'),
+                  //   height: 50,
+                  //   width: 50,
+                  //
+                  // ),
 
                 ],
 
@@ -99,29 +100,29 @@ class MyApp extends StatelessWidget {
                 ),
 
                const SizedBox(height: 20),
-               Padding(
-                   padding: const EdgeInsets.only(left: 20 , right: 20),
-                 child: TextFormField(
-                   decoration:  InputDecoration(
-                     hintText: 'Email',
-                     filled: true,
-                     fillColor:const Color(0xffF8F9FA),
-                     prefixIcon:const Icon(Icons.alternate_email),
-                     focusedBorder:OutlineInputBorder(
-                       borderSide: const BorderSide(color: Color(0xffE4E7EB)),
-                       borderRadius: BorderRadius.circular(15)
-
-                     ),
-                     enabledBorder:OutlineInputBorder(
-                         borderSide: const BorderSide(color: Color(0xffE4E7EB)),
-                         borderRadius: BorderRadius.circular(15)
-
-                     ),
-
-                   ),
-                 ),
-
-               ),
+               // Padding(
+               //     padding: const EdgeInsets.only(left: 20 , right: 20),
+               //   child: TextFormField(
+               //     decoration:  InputDecoration(
+               //       hintText: 'Email',
+               //       filled: true,
+               //       fillColor:const Color(0xffF8F9FA),
+               //       prefixIcon:const Icon(Icons.alternate_email),
+               //       focusedBorder:OutlineInputBorder(
+               //         borderSide: const BorderSide(color: Color(0xffE4E7EB)),
+               //         borderRadius: BorderRadius.circular(15)
+               //
+               //       ),
+               //       enabledBorder:OutlineInputBorder(
+               //           borderSide: const BorderSide(color: Color(0xffE4E7EB)),
+               //           borderRadius: BorderRadius.circular(15)
+               //
+               //       ),
+               //
+               //     ),
+               //   ),
+               //
+               // ),
                const SizedBox(height: 15),
                Padding(
                    padding: const EdgeInsets.only(left: 20 , right: 20),
